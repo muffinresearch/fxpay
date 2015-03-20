@@ -10,7 +10,9 @@
 
 
   exports.setUp = function setUp() {
-    exports.server = sinon.fakeServer.create();
+    exports.sandbox = sinon.sandbox.create();
+    exports.sandbox.useFakeServer();
+    exports.server = exports.sandbox.server;
     exports.settings = fxpay.settings.configure({
       apiUrlBase: 'http://tests-should-never-hit-this.com',
       mozApps: exports.mozAppsStub
@@ -23,7 +25,7 @@
 
 
   exports.tearDown = function tearDown() {
-    exports.server.restore();
+    exports.sandbox.restore();
   };
 
 
